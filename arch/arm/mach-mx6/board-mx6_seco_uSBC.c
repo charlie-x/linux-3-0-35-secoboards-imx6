@@ -615,16 +615,23 @@ static void audio_codec_ac97_cold_reset(struct snd_ac97 *ac97) {
         if (ret || ret1 || ret2) {
                 printk (KERN_ERR "request MX6_AUD_RST ac97_strap1 ac97_strap2 failed!");
         } else {
-                gpio_direction_output(reset, 1);
-                gpio_direction_output(IMX_GPIO_NR(4,18), 0);
-                gpio_direction_output(IMX_GPIO_NR(4,19), 0);
-                udelay(2);
-                gpio_set_value(reset, 0);
-                mdelay(1);
-                gpio_set_value(reset, 1);
-                mdelay(1);
-                gpio_free(IMX_GPIO_NR(4,18));
-                gpio_free(IMX_GPIO_NR(4,19));
+			gpio_direction_output(reset, 0);
+			gpio_direction_output(IMX_GPIO_NR(4,18), 0);
+			udelay(2);
+			gpio_set_value(reset, 1);
+			gpio_free(IMX_GPIO_NR(4,18));
+			gpio_free(IMX_GPIO_NR(4,19));
+
+//                gpio_direction_output(reset, 1);
+//                gpio_direction_output(IMX_GPIO_NR(4,18), 0);
+//                gpio_direction_output(IMX_GPIO_NR(4,19), 0);
+//                udelay(2);
+//                gpio_set_value(reset, 0);
+//                mdelay(1);
+//                gpio_set_value(reset, 1);
+//                mdelay(1);
+//                gpio_free(IMX_GPIO_NR(4,18));
+//                gpio_free(IMX_GPIO_NR(4,19));
         }
         if(cpu_is_mx6dl()){
                 mxc_iomux_v3_setup_pad(MX6DL_PAD_DI0_PIN2__AUDMUX_AUD6_TXD);

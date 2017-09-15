@@ -156,7 +156,14 @@ static void generic_codec_enable(struct snd_soc_codec *codec, int enable)
         struct generic_priv *generic = snd_soc_codec_get_drvdata(codec);
 
         generic->codec_powered = enable;
-        return;
+
+		if ( snd_soc_read(codec, AC97_VENDOR_ID1) == 0x4352 ) {
+		// is a Cirrus codec
+		snd_soc_write(codec, 0x02, 0x0000);
+		snd_soc_write(codec, 0x18, 0x0000);
+	}
+
+    return;
 }
 
 static void generic_init_chip(struct snd_soc_codec *codec)
