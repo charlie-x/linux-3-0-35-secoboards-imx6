@@ -1111,7 +1111,7 @@ static void spi_device_init(void) {
 		spi_register_board_info(imx6_seco_q7_spi_device_revA_B,
 					ARRAY_SIZE(imx6_seco_q7_spi_device_revA_B));
 
-	if ( PCB_IS_REV_C )
+	if ( PCB_IS_REV_C || PCB_IS_REV_D )
 		spi_register_board_info(imx6_seco_q7_spi_device_revC,
                     ARRAY_SIZE(imx6_seco_q7_spi_device_revC));
 		
@@ -1317,6 +1317,8 @@ static void __init mx6_seco_q7_board_init(void)
                 printk (KERN_INFO "Board Rev B\n");	
 	else if (PCB_IS_REV_C)
 				printk (KERN_INFO "Board Rev C\n");
+	else if (PCB_IS_REV_D)
+				printk (KERN_INFO "Board Rev D\n");
 	else
 				printk (KERN_INFO "Unknown Board Revision\n");
 		
@@ -1330,6 +1332,9 @@ static void __init mx6_seco_q7_board_init(void)
 		if (PCB_IS_REV_C)
 		mxc_iomux_v3_setup_multiple_pads(mx6qd_seco_uq7_pads_revC,
                         ARRAY_SIZE(mx6qd_seco_uq7_pads_revC));
+		if (PCB_IS_REV_D)
+                mxc_iomux_v3_setup_multiple_pads(mx6qd_seco_uq7_pads_revC,
+                        ARRAY_SIZE(mx6qd_seco_uq7_pads_revC));
 
 		
 	}
@@ -1341,6 +1346,9 @@ static void __init mx6_seco_q7_board_init(void)
                 mxc_iomux_v3_setup_multiple_pads(mx6sdl_seco_uq7_pads_revA_B,
                         ARRAY_SIZE(mx6sdl_seco_uq7_pads_revA_B));
                 if (PCB_IS_REV_C)
+                mxc_iomux_v3_setup_multiple_pads(mx6sdl_seco_uq7_pads_revC,
+                        ARRAY_SIZE(mx6sdl_seco_uq7_pads_revC));
+		if (PCB_IS_REV_D)
                 mxc_iomux_v3_setup_multiple_pads(mx6sdl_seco_uq7_pads_revC,
                         ARRAY_SIZE(mx6sdl_seco_uq7_pads_revC));
 		
@@ -1469,7 +1477,7 @@ static void __init mx6_seco_q7_board_init(void)
 	/* SPI */
 	if ( PCB_IS_REV_A || PCB_IS_REV_B )
 		imx6q_add_ecspi(0, &mx6q_seco_q7_spi_data_revA_B);
-	if ( PCB_IS_REV_C ){
+	if ( PCB_IS_REV_C || PCB_IS_REV_D){
                 imx6q_add_ecspi(0, &mx6q_seco_q7_spi_1_data_revC);
 		imx6q_add_ecspi(1, &mx6q_seco_q7_spi_2_data_revC);
 		imx6q_add_ecspi(2, &mx6q_seco_q7_spi_3_data_revC);
